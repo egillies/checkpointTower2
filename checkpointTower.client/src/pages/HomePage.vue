@@ -10,7 +10,7 @@
       <div class="container-fluid">
         <div class="row justify-content-center">
           <div class="col-8">
-            <div class="bg-info d-flex justify-content-around p-2 rounded">
+            <div class="bg-secondary d-flex justify-content-around p-2 rounded">
               <button class="btn btn-outline-light" @click="filterBy = ''">All</button>
               <button class="btn btn-outline-light" @click="filterBy = 'concert'">Concerts</button>
               <button class="btn btn-outline-light" @click="filterBy = 'convention'">Conventions</button>

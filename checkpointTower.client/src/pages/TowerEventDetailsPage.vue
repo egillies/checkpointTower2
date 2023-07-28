@@ -27,7 +27,7 @@
                         type: {{ towerEvent?.type }}
                     </p>
                     <p>
-                        Capicity: {{ towerEvent?.capacity }}
+                        Capacity: {{ towerEvent?.capacity }}
                     </p>
                     <p class="fs-4">
                         {{ towerEvent?.description }}
@@ -51,28 +51,30 @@
 
                 <div v-if="account?.id" class="col-6">
                     <!-- FIXME add the @submit -->
-                    <form @submit.prevent="createComment()">
-                        <label for="exampleInputEmail1" class="form-label"></label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                        <div id="emailHelp" class="form-text">Create a Comment</div>
-                        <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                            <label class="form-check-label" for="exampleCheck1">Attending</label>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
+
+                    <div class="row">
+                        <form @submit.prevent="createComment()">
+
+                            <div class="form-floating p-3">
+                                <input v-model="editable.body" required type="text" class="form-control" id="comment"
+                                    placeholder="comment">
+                                <label for="comment">Comment</label>
+                            </div>
+                            <button @click="createComment()" v-if="account.id" class="btn btn-success fs-4">Comment</button>
+                        </form>
+                    </div>
+                </div>
+
+
+                <div class="pt-3">
+                    <button v-if="account?.id == towerEvent?.creatorId" :disabled="towerEvent.isCanceled == true"
+                        class="btn btn-danger" @click="archiveTowerEvent()" type="button">
+                        <i class="mdi mdi-close-circle text-dark">Delete Event</i>
+                    </button>
                 </div>
             </div>
 
-
-            <div class="pt-3">
-                <button v-if="account?.id == towerEvent?.creatorId" :disabled="towerEvent.isCanceled == true"
-                    class="btn btn-danger" @click="archiveTowerEvent()" type="button">
-                    <i class="mdi mdi-close-circle text-dark">Delete Event</i>
-                </button>
-            </div>
         </div>
-
     </div>
 </template>
 
@@ -81,18 +83,28 @@
 import { useRoute } from 'vue-router';
 import { towerEventsService } from '../services/TowerEventsService.js';
 import Pop from '../utils/Pop.js';
-import { computed, onMounted, watchEffect } from 'vue';
+import { computed, onMounted, watchEffect, ref } from 'vue';
 import { AppState } from '../AppState.js';
 import { TowerEvent } from '../models/TowerEvent.js';
 import { logger } from '../utils/Logger.js';
 import { ticketsService } from '../services/TicketsService.js'
+import { commentsService } from '../services/CommentsService.js'
 
 
 //NOTE these functions run on page load
 export default {
 
     setup() {
+        const editable = ref({})
         const route = useRoute()
+
+        function setFormDefaults() {
+            editable.value = {}
+        }
+
+        onMounted(() => {
+            setFormDefaults()
+        })
 
         async function getTowerEventsById(eventId) {
             try {
@@ -113,10 +125,6 @@ export default {
             }
         }
 
-        // onMounted(()=>{
-
-        // })
-
         watchEffect(() => {
             getTowerEventsById(route.params.eventId)
             getTicketsByTowerEventId()
@@ -124,9 +132,11 @@ export default {
         })
 
         return {
+            editable,
             towerEvent: computed(() => AppState.activeTowerEvent),
             account: computed(() => AppState.account),
             tickets: computed(() => AppState.tickets),
+            comments: computed(() => AppState.comments),
 
             // TODO add a computed that checks to see if your account is in the tickets hasTicket
 
@@ -177,7 +187,10 @@ export default {
 
             async createComment() {
                 try {
-                    console.log('the create comment form')
+                    const formData = editable.value
+                    logger.log(formData, '[COMMENT CREATED]')
+                    formData.eventId = route.params.eventId
+                    await commentsService.createComment(formData)
                 } catch (error) {
                     Pop.error(error)
                 }
