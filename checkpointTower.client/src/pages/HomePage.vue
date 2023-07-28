@@ -57,7 +57,7 @@ export default {
         if (filterBy.value == "") {
           return AppState.towerEvents
         } else {
-          return AppState.towerEvents.filter(a => a.category == filterBy.value)
+          return AppState.towerEvents.filter(a => a.type == filterBy.value)
         }
       }),
     }

@@ -16,6 +16,12 @@ class TicketsService {
         const newTicket = new Ticket(res.data);
         AppState.tickets.unshift(newTicket)
     }
+
+    async removeTicket(ticketId) {
+        const res = await api.delete(`api/tickets/${ticketId}`)
+        logger.log('[REMOVING TICKET]', res.data)
+        AppState.tickets = AppState.tickets.filter(c => c.id != ticketId)
+    }
 }
 
 export const ticketsService = new TicketsService()

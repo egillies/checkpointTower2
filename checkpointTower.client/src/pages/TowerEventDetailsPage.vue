@@ -22,7 +22,9 @@
                 </div>
 
                 <div>
-                    <button class="btn btn-success" @click="createTicket()">Get Tickets</button>
+                    <button :disabled="towerEventProp?.isCanceled == true" class="btn btn-success"
+                        @click="createTicket()">Get
+                        Tickets</button>
                 </div>
 
 
@@ -88,6 +90,7 @@ export default {
         return {
             towerEvent: computed(() => AppState.activeTowerEvent),
             account: computed(() => AppState.account),
+            tickets: computed(() => AppState.tickets),
 
             async archiveTowerEvent() {
                 try {
@@ -102,15 +105,36 @@ export default {
                 } catch (error) {
                     Pop.error(error.message)
                 }
+            },
+
+            async createTicket() {
+                try {
+                    logger.log('[CREATING TICKET]')
+                    const activeTowerEventId = route.params.eventId
+                    // const ticketData = {}
+                    // ticketData.eventId = eventId
+                    const ticketData = { eventId: activeTowerEventId }
+                    await ticketsService.createTicket(ticketData)
+
+                } catch (error) {
+                    logger.error(error)
+                    Pop.error(error.message, '[ERROR CREATING TICKET]')
+                }
+            },
+
+            async removeTicket() {
+                try {
+                    logger.log('[REMOVING TICKET]')
+                    const ticketToRemove = AppState.tickets.find(c => c.accountId == AppState.account.id)
+                    const ticketId = ticketToRemove.id
+                    await ticketsService.removeTicket(ticketId)
+                } catch (error) {
+                    logger.error(error)
+                    Pop.error(error.message, '[ERROR REMOVING TICKET]')
+                }
             }
 
-            // async createTicket(){
-            //     try {
-                    
-            //     } catch (error) {
-                    
-            //     }
-            // }
+
         }
     }
 
