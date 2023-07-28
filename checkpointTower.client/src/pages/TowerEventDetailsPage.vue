@@ -41,6 +41,8 @@ import Pop from '../utils/Pop.js';
 import { computed, onMounted, watchEffect } from 'vue';
 import { AppState } from '../AppState.js';
 import { TowerEvent } from '../models/TowerEvent.js';
+import { logger } from '../utils/Logger.js';
+import { ticketsService } from '../services/TicketsService.js'
 
 
 //NOTE these functions run on page load
@@ -58,6 +60,16 @@ export default {
             }
         }
 
+        async function getTicketsByTowerEventId() {
+            try {
+                const eventId = route.params.eventId
+                await ticketsService.getTicketsByTowerEventId(eventId)
+            } catch (error) {
+                logger.error(error)
+                Pop.error(error.message)
+            }
+        }
+
 
         // onMounted(()=>{
 
@@ -65,6 +77,7 @@ export default {
 
         watchEffect(() => {
             getTowerEventsById(route.params.eventId)
+            getTicketsByTowerEventId()
             // archiveTowerEvent()
         })
 
