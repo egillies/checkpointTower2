@@ -22,12 +22,6 @@
             <i class="mdi mdi-plus-box">New Event</i>
           </button>
         </li>
-        <!-- <li>
-          <button v-if="route.name == 'Event' && account.id && account.id == event?.creatorId" @click="archiveTowerEvent()"
-            class="btn btn-success ms-2" type="button">
-            <i class="mdi mdi-close-circle text-danger"></i> archive album
-          </button>
-        </li> -->
       </ul>
       <!-- LOGIN COMPONENT HERE -->
       <Login />
@@ -38,7 +32,6 @@
 <script>
 import Login from './Login.vue';
 import { useRoute } from 'vue-router';
-import { towerEventsService } from '../services/TowerEventsService.js';
 import { computed } from 'vue';
 import { AppState } from '../AppState.js';
 export default {
@@ -48,20 +41,6 @@ export default {
       route,
       account: computed(() => AppState.account),
       towerEvent: computed(() => AppState.activeTowerEvent),
-      // async archiveTowerEvent() {
-      //   try {
-      //     const wantsToArchive = await Pop.confirm
-
-      //     if (!wantsToArchive) {
-      //       return
-      //     }
-
-      //     const towerEventId = route.params.towerEventId
-      //     await towerEventsService.archiveTowerEvent(towerEventId)
-      //   } catch (error) {
-      //     Pop.error(error.message)
-      //   }
-      // }
     }
   },
   components: { Login }

@@ -4,7 +4,6 @@
 
       <div class="col-12 bg-dark text-light">
         <h1>My Events</h1>
-        <!-- {{ towerEvents }} -->
       </div>
 
       <!-- //NOTE TowerEvent card goes here-->

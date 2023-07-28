@@ -29,7 +29,12 @@ class TowerEventsService {
         return towerEvent
     }
 
-    // async archiveTowerEvent(towerEventId)
-}
+    async archiveTowerEvent(towerEventId) {
+        const res = await api.delete(`api/events/${towerEventId}`)
+        logger.log('[DELETED EVENT', res.data);
+        const towerEventIndex = AppState.towerEvents.findIndex(t => t.id == towerEventId)
+        AppState.towerEvents.splice(towerEventIndex, 1)
+    }
+}3
 
 export const towerEventsService = new TowerEventsService()

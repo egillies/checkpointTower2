@@ -6,15 +6,19 @@
             <div class="text-center" p-2>
                 <h2> {{ towerEventProp.name }}</h2>
                 <!-- <p> hosted by: {{ towerEventProp.creatorId }}</p> -->
-                <p>
+                <div>
                     <i class="mdi mdi-account"></i>
-                    <span>{{ towerEventProp.capacity }}</span>
-                </p>
+                    <p>{{ towerEventProp.capacity }}</p>
+                </div>
+                <p> {{ towerEventProp.description }}</p>
+                <p> {{ towerEventProp.location }}</p>
+                <p> {{ towerEventProp.startDate }}</p>
 
-                <button v-if="route.name == 'Event' && account.id && account.id == towerEventProp?.creatorId"
-                    @click="archiveTowerEvent()" class="btn btn-success ms-2" type="button">
-                    <i class="mdi mdi-close-circle text-danger">Delete Event</i>
-                </button>
+                <div v-if="account.id == towerEventProp.creatorId">
+                    <button class="btn btn-success ms-2" @click="archiveTowerEvent()" type="button">
+                        <i class="mdi mdi-close-circle text-danger">Delete Event</i>
+                    </button>
+                </div>
             </div>
 
         </div>
@@ -29,6 +33,7 @@ import { computed } from 'vue';
 import { AppState } from '../AppState.js';
 import Pop from '../utils/Pop.js';
 import { towerEventsService } from '../services/TowerEventsService.js';
+
 
 
 export default {
@@ -57,6 +62,7 @@ export default {
             }
         }
     }
+
 }
 </script>
 
