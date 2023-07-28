@@ -210,8 +210,6 @@ export default {
                     Pop.error(error)
                 }
             }
-
-
         }
     }
 
