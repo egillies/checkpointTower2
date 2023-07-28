@@ -5,17 +5,20 @@ class TowerEventsService {
     async createTowerEvent(towerEventData) {
         const newTowerEvent = await dbContext.TowerEvents.create(towerEventData)
         await newTowerEvent.populate('creator')
+        await newTowerEvent.populate('ticketCount')
+
         return newTowerEvent
     }
     async getTowerEvents() {
         // FIXME add the ticketCount virtual to be populated
         const towerEvents = await dbContext.TowerEvents.find()
             .populate('creator')
+            .populate('ticketCount')
         return towerEvents
     }
     async getTowerEventById(towerEventId) {
         // FIXME add the ticketCount virtual to be populated
-        const towerEvent = await dbContext.TowerEvents.findById(towerEventId).populate('creator')
+        const towerEvent = await dbContext.TowerEvents.findById(towerEventId).populate('creator').populate('ticketCount')
         if (!towerEvent) {
             throw new BadRequest(`Event ${towerEventId} does not exist.`)
         }
