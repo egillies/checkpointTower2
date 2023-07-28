@@ -151,6 +151,9 @@ export default {
             account: computed(() => AppState.account),
             tickets: computed(() => AppState.tickets),
             comments: computed(() => AppState.comments),
+            hasTicket: computed(() => {
+                return AppState.tickets.find(c => c.accountId == AppState.account.id)
+            }),
 
             // TODO add a computed that checks to see if your account is in the tickets hasTicket
 
@@ -176,8 +179,6 @@ export default {
                 try {
                     logger.log('[CREATING TICKET]')
                     const activeTowerEventId = route.params.eventId
-                    // const ticketData = {}
-                    // ticketData.eventId = eventId
                     const ticketData = { eventId: activeTowerEventId }
                     await ticketsService.createTicket(ticketData)
 

@@ -1,5 +1,5 @@
 <template>
-    <router-link :to="{ name: 'TowerEvent', params: { eventId: towerEventProp.id } }">
+    <router-link :to="{ name: 'TowerEvent', params: { eventId: towerEventProp?.id } }">
         <div class="rounded light-shadow mb-3">
             <img :src="towerEventProp.coverImg" :alt="towerEventProp.name" class="img-fluid">
 
