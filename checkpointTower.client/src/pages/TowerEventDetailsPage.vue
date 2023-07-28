@@ -21,6 +21,11 @@
                     </p>
                 </div>
 
+                <div>
+                    <button class="btn btn-success" @click="createTicket()">Get Tickets</button>
+                </div>
+
+
                 <div class="pt-3">
                     <button v-if="account?.id == towerEvent?.creatorId" :disabled="towerEvent.isCanceled == true"
                         class="btn btn-danger" @click="archiveTowerEvent()" type="button">
@@ -70,7 +75,6 @@ export default {
             }
         }
 
-
         // onMounted(()=>{
 
         // })
@@ -99,6 +103,14 @@ export default {
                     Pop.error(error.message)
                 }
             }
+
+            // async createTicket(){
+            //     try {
+                    
+            //     } catch (error) {
+                    
+            //     }
+            // }
         }
     }
 

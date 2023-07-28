@@ -13,18 +13,6 @@
             </div>
         </div>
 
-        <form @submit.prevent="createTicket()">
-            <div class="mb-3">
-                <label for="towerEventId" class="form-label">Get Tickets</label>
-                <!-- NOTE: remember we want our v-models to correlate with the properties we need on our data in the server -->
-                <input required type="text" v-model="editable.eventId" class="form-control" id="towerEventId"
-                    placeholder="towerEventId" maxlength="75" minlength="3">
-            </div>
-
-            <div class="text-end">
-                <button class="btn btn-success" type="submit">Submit</button>
-            </div>
-        </form>
     </router-link>
 </template>
 

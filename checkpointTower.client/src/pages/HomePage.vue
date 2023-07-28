@@ -13,16 +13,32 @@
 
     </div>
   </div>
+
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-8">
+        <div class="bg-info d-flex justify-content-around p-2 rounded">
+          <button class="btn btn-outline-light" @click="filterBy = ''">All</button>
+          <button class="btn btn-outline-light" @click="filterBy = 'concert'">Concerts</button>
+          <button class="btn btn-outline-light" @click="filterBy = 'convention'">Conventions</button>
+          <button class="btn btn-outline-light" @click="filterBy = 'sport'">Sports</button>
+          <button class="btn btn-outline-light" @click="filterBy = 'digital'">Digital</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import Pop from '../utils/Pop.js';
 import { towerEventsService } from '../services/TowerEventsService.js'
 import { AppState } from '../AppState.js';
 
 export default {
   setup() {
+    const filterBy = ref('')
+
     async function getTowerEvents() {
       try {
         await towerEventsService.getTowerEvents()
@@ -35,12 +51,21 @@ export default {
       getTowerEvents()
     })
 
-
     return {
-      towerEvents: computed(() => AppState.towerEvents)
+      filterBy,
+      towerEvents: computed(() => {
+        if (filterBy.value == "") {
+          return AppState.towerEvents
+        } else {
+          return AppState.towerEvents.filter(a => a.category == filterBy.value)
+        }
+      }),
     }
   }
 }
+
+
+
 </script>
 
 <style scoped lang="scss">
