@@ -2,6 +2,13 @@
     <div v-if="towerEvent" class="container-fluid">
         <div class="row">
             <!--SECTION TowerEvent details-->
+
+            <div class="text-danger" v-if="towerEvent.isCanceled">{{ towerEvent.isCanceled }}</div>
+
+            <!-- TODO add a tag for sold out -->
+
+            <!-- TODO add a tag for hasTicket -->
+
             <div class="col-3">
                 <div class="d-flex justify-content-between align-items-start">
                     <img :src="towerEvent.coverImg" :alt="towerEvent.name" class="img-fluid">
@@ -12,23 +19,39 @@
                 <p class="fs-4 fw-bold">
                     {{ towerEvent?.name }}
                 </p>
-                <div class="d-flex align-items-start">
-
+                <div class="">
+                    <p>
+                        Date: {{ new Date(towerEvent?.startDate).toLocaleDateString() }}
+                    </p>
+                    <p>
+                        type: {{ towerEvent?.type }}
+                    </p>
+                    <p>
+                        Capicity: {{ towerEvent?.capacity }}
+                    </p>
                     <p class="fs-4">
-                        {{ towerEvent?.startDate }}
-                        {{ towerEvent?.type }}
                         {{ towerEvent?.description }}
                     </p>
                 </div>
 
+                <!-- FIXME add a conditional v-if for hasTicket or sold out -->
                 <div>
-                    <button :disabled="towerEventProp?.isCanceled == true" class="btn btn-success"
-                        @click="createTicket()">Get
+                    <button :disabled="towerEvent?.isCanceled == true" class="btn btn-success" @click="createTicket()">Get
                         Tickets</button>
                 </div>
 
+
+                <div>
+                    <!-- FIXME add the user image -->
+                    <div v-for="ticket in tickets" :key="ticket.id">
+                        {{ ticket.profile.name }}
+                    </div>
+                </div>
+
+
                 <div v-if="account?.id" class="col-6">
-                    <form>
+                    <!-- FIXME add the @submit -->
+                    <form @submit.prevent="createComment()">
                         <label for="exampleInputEmail1" class="form-label"></label>
                         <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                         <div id="emailHelp" class="form-text">Create a Comment</div>
@@ -105,6 +128,11 @@ export default {
             account: computed(() => AppState.account),
             tickets: computed(() => AppState.tickets),
 
+            // TODO add a computed that checks to see if your account is in the tickets hasTicket
+
+            // TODO add a computed that checks to see if the event is soldout (a bit of math against the ticketCount and the capicity)
+
+
             async archiveTowerEvent() {
                 try {
                     const wantsToArchive = await Pop.confirm()
@@ -145,11 +173,15 @@ export default {
                     logger.error(error)
                     Pop.error(error.message, '[ERROR REMOVING TICKET]')
                 }
-            }
+            },
 
-            // async createComment(){
-            //     add
-            // }
+            async createComment() {
+                try {
+                    console.log('the create comment form')
+                } catch (error) {
+                    Pop.error(error)
+                }
+            }
 
 
         }

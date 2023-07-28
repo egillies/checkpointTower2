@@ -7,24 +7,23 @@
       </div>
 
       <!-- //NOTE TowerEvent card goes here-->
+      <div class="container-fluid">
+        <div class="row justify-content-center">
+          <div class="col-8">
+            <div class="bg-info d-flex justify-content-around p-2 rounded">
+              <button class="btn btn-outline-light" @click="filterBy = ''">All</button>
+              <button class="btn btn-outline-light" @click="filterBy = 'concert'">Concerts</button>
+              <button class="btn btn-outline-light" @click="filterBy = 'convention'">Conventions</button>
+              <button class="btn btn-outline-light" @click="filterBy = 'sport'">Sports</button>
+              <button class="btn btn-outline-light" @click="filterBy = 'digital'">Digital</button>
+            </div>
+          </div>
+        </div>
+      </div>
       <div v-for="towerEvent in towerEvents" :key="towerEvent.id" class="col-3">
         <TowerEventCard :towerEventProp="towerEvent" />
       </div>
 
-    </div>
-  </div>
-
-  <div class="container-fluid">
-    <div class="row justify-content-center">
-      <div class="col-8">
-        <div class="bg-info d-flex justify-content-around p-2 rounded">
-          <button class="btn btn-outline-light" @click="filterBy = ''">All</button>
-          <button class="btn btn-outline-light" @click="filterBy = 'concert'">Concerts</button>
-          <button class="btn btn-outline-light" @click="filterBy = 'convention'">Conventions</button>
-          <button class="btn btn-outline-light" @click="filterBy = 'sport'">Sports</button>
-          <button class="btn btn-outline-light" @click="filterBy = 'digital'">Digital</button>
-        </div>
-      </div>
     </div>
   </div>
 </template>

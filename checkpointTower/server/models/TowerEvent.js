@@ -18,3 +18,13 @@ TowerEventSchema.virtual('creator', {
     justOne: true,
     ref: 'Account'
 })
+
+TowerEventSchema.virtual('ticketCount', {
+    localField: '_id',
+    ref: 'Ticket',
+    foreignField: 'eventId',
+    count: true
+})
+
+
+// FIXME need to add the virtual for the ticketCount... look at album for the Member Count
