@@ -47,6 +47,9 @@
                         {{ ticket.profile.name }}
                     </div>
                 </div>
+                <div v-for="comment in comments" :key="comment.id">
+                    {{ comment.body }}
+                </div>
 
 
                 <div v-if="account?.id" class="col-6">
@@ -202,6 +205,7 @@ export default {
                     logger.log(formData, '[COMMENT CREATED]')
                     formData.eventId = route.params.eventId
                     await commentsService.createComment(formData)
+                    editable.value = {}
                 } catch (error) {
                     Pop.error(error)
                 }
