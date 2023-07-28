@@ -1,7 +1,9 @@
 import { AppState } from "../AppState.js"
 import { Ticket } from "../models/Ticket.js"
 import { logger } from "../utils/Logger.js"
+import Pop from "../utils/Pop.js"
 import { api } from "./AxiosService.js"
+
 class TicketsService {
 
     async getTicketsByTowerEventId(eventId) {
@@ -21,6 +23,17 @@ class TicketsService {
         const res = await api.delete(`api/tickets/${ticketId}`)
         logger.log('[REMOVING TICKET]', res.data)
         AppState.tickets = AppState.tickets.filter(c => c.id != ticketId)
+    }
+
+    async getMyTickets() {
+        try {
+            const res = await api.get('account/tickets')
+            logger.log('[GET MY TICKETS]', res.data);
+            AppState.myTickets = res.data.map(d => new Ticket(d))
+        } catch (error) {
+            logger.error(error)
+            Pop.error(error)
+        }
     }
 }
 
