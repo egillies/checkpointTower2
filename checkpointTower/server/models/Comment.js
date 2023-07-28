@@ -1,4 +1,4 @@
-import { Schema, SchemaTypes } from "mongoose";
+import { Schema } from "mongoose";
 
 export const CommentsSchema = new Schema({
     body: { type: String, required: true, maxLength: 500, minLength: 3 },

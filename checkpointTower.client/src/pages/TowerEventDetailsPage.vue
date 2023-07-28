@@ -125,9 +125,20 @@ export default {
             }
         }
 
+        async function getCommentsByTowerEventId() {
+            try {
+                const eventId = route.params.eventId
+                await commentsService.getCommentsByTowerEventId(eventId)
+            } catch (error) {
+                logger.error(error)
+                Pop.error(error.message)
+            }
+        }
+
         watchEffect(() => {
             getTowerEventsById(route.params.eventId)
             getTicketsByTowerEventId()
+            getCommentsByTowerEventId()
             // archiveTowerEvent()
         })
 
