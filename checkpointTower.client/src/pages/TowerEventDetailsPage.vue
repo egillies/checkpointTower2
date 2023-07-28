@@ -27,16 +27,29 @@
                         Tickets</button>
                 </div>
 
-
-                <div class="pt-3">
-                    <button v-if="account?.id == towerEvent?.creatorId" :disabled="towerEvent.isCanceled == true"
-                        class="btn btn-danger" @click="archiveTowerEvent()" type="button">
-                        <i class="mdi mdi-close-circle text-dark">Delete Event</i>
-                    </button>
+                <div v-if="account?.id" class="col-6">
+                    <form>
+                        <label for="exampleInputEmail1" class="form-label"></label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <div id="emailHelp" class="form-text">Create a Comment</div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                            <label class="form-check-label" for="exampleCheck1">Attending</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
                 </div>
             </div>
 
+
+            <div class="pt-3">
+                <button v-if="account?.id == towerEvent?.creatorId" :disabled="towerEvent.isCanceled == true"
+                    class="btn btn-danger" @click="archiveTowerEvent()" type="button">
+                    <i class="mdi mdi-close-circle text-dark">Delete Event</i>
+                </button>
+            </div>
         </div>
+
     </div>
 </template>
 
@@ -133,6 +146,10 @@ export default {
                     Pop.error(error.message, '[ERROR REMOVING TICKET]')
                 }
             }
+
+            // async createComment(){
+            //     add
+            // }
 
 
         }
