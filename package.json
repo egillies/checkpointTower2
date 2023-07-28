@@ -1,0 +1,13 @@
+
+  {
+    "name": "checkpointtower",
+    "version": "1.0.0",
+    "scripts": {
+      "build": "npm run setup:server",
+      "setup:app": "npm run setup:server && npm run setup:client",
+      "setup:client": "cd checkpointTower.client && npm i",
+      "setup:server": "cd checkpointTower && npm i",
+      "start": "node checkpointTower/index.js"
+    }
+  }
+  
