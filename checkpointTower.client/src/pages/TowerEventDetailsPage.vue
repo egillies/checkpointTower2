@@ -3,7 +3,12 @@
         <div class="row">
             <!--SECTION TowerEvent details-->
 
-            <div class="text-danger" v-if="towerEvent.isCanceled">{{ towerEvent.isCanceled }}</div>
+            <div class="text-danger" v-if="towerEvent.isCanceled">
+
+                <!-- {{ towerEvent.isCanceled }} -->
+                <h1>Sorry, this event has been canceled </h1>
+
+            </div>
 
             <!-- TODO add a tag for sold out -->
 
@@ -85,7 +90,7 @@
                 <div class="pt-3">
                     <button v-if="account?.id == towerEvent?.creatorId" :disabled="towerEvent.isCanceled == true"
                         class="btn btn-danger" @click="archiveTowerEvent()" type="button">
-                        <i class="mdi mdi-close-circle text-dark">Delete Event</i>
+                        <i class="mdi mdi-close-circle text-dark">Cancel Event</i>
                     </button>
                 </div>
             </div>

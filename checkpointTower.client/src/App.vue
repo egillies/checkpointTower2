@@ -44,6 +44,13 @@ export default {
   --main-height: calc(100vh - 32px - 64px);
 }
 
+// body {
+//   background-image: url('./assets/img/bg-img.png');
+//   background-size: cover;
+//   background-attachment: fixed;
+// }
+
+
 footer {
   display: grid;
   place-content: center;
