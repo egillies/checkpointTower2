@@ -54,26 +54,33 @@
                     </div>
                 </div>
 
-                <div v-for="comment in comments" :key="comment.id">
+                <div v-for="comment in comments" :key="comment?.id">
                     {{ comment.body }}
+                    {{ comment.profile?.name }}
+                    <img class="profile-img" :src="comment.profile?.imgUrl" alt="" />
+                    <button v-if="comment?.accountId == accountId" class="btn btn-danger" @click="removeComment()">Delete
+                        Comment</button>
                 </div>
 
-
-                <div v-if="account?.id" class="col-6">
+                <div v-if="account?.id">
 
                     <div class="row">
-                        <form @submit.prevent="createComment()">
 
-                            <div class="form-floating p-3">
-                                <input v-model="editable.body" required type="text" class="form-control" id="comment"
-                                    placeholder="comment">
-                                <label for="comment">Comment</label>
-                            </div>
-                            <button @click="createComment()" v-if="account.id" class="btn btn-success fs-4">Comment</button>
-                        </form>
+                        <div class="col-6">
+
+                            <form @submit.prevent="createComment()">
+
+                                <div class="form-floating p-3">
+                                    <input v-model="editable.body" required type="text" class="form-control" id="comment"
+                                        placeholder="comment">
+                                    <label for="comment">Comment</label>
+                                </div>
+                                <button @click="createComment()" v-if="account.id"
+                                    class="btn btn-success fs-4">Comment</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-
 
                 <div class="pt-3">
                     <button v-if="account?.id == towerEvent?.creatorId" :disabled="towerEvent.isCanceled == true"
@@ -94,7 +101,7 @@ import { towerEventsService } from '../services/TowerEventsService.js';
 import Pop from '../utils/Pop.js';
 import { computed, onMounted, watchEffect, ref } from 'vue';
 import { AppState } from '../AppState.js';
-import { TowerEvent } from '../models/TowerEvent.js';
+// import { TowerEvent } from '../models/TowerEvent.js';
 import { logger } from '../utils/Logger.js';
 import { ticketsService } from '../services/TicketsService.js'
 import { commentsService } from '../services/CommentsService.js'
