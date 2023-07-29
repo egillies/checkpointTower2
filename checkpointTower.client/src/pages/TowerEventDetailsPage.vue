@@ -46,6 +46,7 @@
                     <button v-if="!hasTicket" class="btn btn-success" @click="createTicket()">Get Tickets</button>
 
                     <button v-else class="btn btn-danger" @click="RemoveTicket()">Delete Ticket</button>
+
                 </div>
 
 
