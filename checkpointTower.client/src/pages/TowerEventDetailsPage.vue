@@ -40,9 +40,9 @@
 
                     <div class="rounded bg-info light-shadow p-2">
 
-                        <button :disabled="towerEvent?.isCanceled == true" class="btn btn-success"
-                            @click="createTicket()">Get
-                            Tickets</button>
+                        <button v-if="!hasTicket" class="btn btn-success" @click="createTicket()">Get Tickets</button>
+
+                        <button v-else class="btn btn-danger" @click="RemoveTicket()">Delete Ticket</button>
                     </div>
                 </div>
 
@@ -196,7 +196,7 @@ export default {
                     const ticketId = ticketToRemove.id
                     await ticketsService.removeTicket(ticketId)
                     AppState.myTickets.ticketCount--
-                    const ticketsRemaining = AppState.tickets.filter(t => t.)
+                    // const ticketsRemaining = AppState.tickets.filter(t => t.)
 
                 } catch (error) {
                     logger.error(error)
