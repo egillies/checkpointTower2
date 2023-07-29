@@ -111,7 +111,6 @@ export default {
 
         async function getTowerEventsById(eventId) {
             try {
-                const eventId = route.params.eventId
                 await towerEventsService.getTowerEventsById(eventId)
             } catch (error) {
                 Pop.error(error.message)
@@ -142,7 +141,6 @@ export default {
             getTowerEventsById(route.params.eventId)
             getTicketsByTowerEventId()
             getCommentsByTowerEventId()
-            // archiveTowerEvent()
         })
 
         return {
@@ -155,11 +153,7 @@ export default {
                 return AppState.tickets.find(c => c.accountId == AppState.account.id)
             }),
 
-            // TODO add a computed that checks to see if your account is in the tickets hasTicket
-
             // TODO add a computed that checks to see if the event is soldout (a bit of math against the ticketCount and the capicity)
-
-
             async archiveTowerEvent() {
                 try {
                     const wantsToArchive = await Pop.confirm()
@@ -216,10 +210,8 @@ export default {
             }
         }
     }
-
 }
 
 </script>
-
 
 <style lang="scss" scoped></style>
