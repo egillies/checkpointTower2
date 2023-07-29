@@ -9,20 +9,20 @@ class TicketsService {
     async getTicketsByTowerEventId(eventId) {
         const res = await api.get(`api/events/${eventId}/tickets`)
         logger.log('[GETTING TICKETS]', res.data);
-        AppState.tickets = res.data.map(d => new Ticket(d))
+        AppState.myTickets = res.data.map(d => new Ticket(d))
     }
 
     async createTicket(ticketData) {
         const res = await api.post('api/tickets', ticketData);
         logger.log('[CREATING TICKET]', res.data);
 
-        AppState.tickets.push(new Ticket(res.data))
+        AppState.myTickets.push(new Ticket(res.data))
     }
 
     async removeTicket(ticketId) {
         const res = await api.delete(`api/tickets/${ticketId}`)
         logger.log('[REMOVING TICKET]', res.data)
-        AppState.tickets = AppState.tickets.filter(c => c.id != ticketId)
+        AppState.myTickets = AppState.myTickets.filter(c => c.id != ticketId)
     }
 
     async getMyTickets() {
