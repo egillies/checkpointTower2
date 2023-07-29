@@ -42,18 +42,18 @@
 
 
                 <div>
-                    <!-- FIXME add the user image -->
                     <div v-for="ticket in tickets" :key="ticket.id">
-                        {{ ticket.profile.name }}
+                        {{ ticket.profile?.name }}
+                        <img class="profile-img" :src="ticket.profile?.imgUrl" alt="" />
                     </div>
                 </div>
+
                 <div v-for="comment in comments" :key="comment.id">
                     {{ comment.body }}
                 </div>
 
 
                 <div v-if="account?.id" class="col-6">
-                    <!-- FIXME add the @submit -->
 
                     <div class="row">
                         <form @submit.prevent="createComment()">
@@ -214,4 +214,11 @@ export default {
 
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.profile-img {
+    height: 10vh;
+    width: 10vh;
+    border-radius: 5px;
+    box-shadow: 2px 2px white;
+}
+</style>
