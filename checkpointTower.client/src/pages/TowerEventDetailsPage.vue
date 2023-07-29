@@ -181,6 +181,7 @@ export default {
                     const activeTowerEventId = route.params.eventId
                     const ticketData = { eventId: activeTowerEventId }
                     await ticketsService.createTicket(ticketData)
+                    AppState.myTickets.ticketCount++
 
                 } catch (error) {
                     logger.error(error)
@@ -194,6 +195,8 @@ export default {
                     const ticketToRemove = AppState.tickets.find(c => c.accountId == AppState.account.id)
                     const ticketId = ticketToRemove.id
                     await ticketsService.removeTicket(ticketId)
+                    AppState.myTickets.ticketCount--
+
                 } catch (error) {
                     logger.error(error)
                     Pop.error(error.message, '[ERROR REMOVING TICKET]')
