@@ -43,12 +43,9 @@
 
                 <div class="d-flex pt-2">
 
-                    <div class="rounded bg-info light-shadow p-2">
+                    <button v-if="!hasTicket" class="btn btn-success" @click="createTicket()">Get Tickets</button>
 
-                        <button v-if="!hasTicket" class="btn btn-success" @click="createTicket()">Get Tickets</button>
-
-                        <button v-else class="btn btn-danger" @click="RemoveTicket()">Delete Ticket</button>
-                    </div>
+                    <button v-else class="btn btn-danger" @click="RemoveTicket()">Delete Ticket</button>
                 </div>
 
 
