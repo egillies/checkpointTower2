@@ -12,11 +12,11 @@ class TicketsService {
         AppState.tickets = res.data.map(d => new Ticket(d))
     }
 
-    async createTicket(formData) {
-        const res = await api.post('api/tickets', formData);
+    async createTicket(ticketData) {
+        const res = await api.post('api/tickets', ticketData);
         logger.log('[CREATING TICKET]', res.data);
-        const newTicket = new Ticket(res.data);
-        AppState.tickets.unshift(newTicket)
+
+        AppState.tickets.push(new Ticket(res.data))
     }
 
     async removeTicket(ticketId) {

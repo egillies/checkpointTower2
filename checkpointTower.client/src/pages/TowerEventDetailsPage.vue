@@ -35,6 +35,7 @@
                 </div>
 
                 <!-- FIXME add a conditional v-if for hasTicket or sold out -->
+
                 <div>
                     <button :disabled="towerEvent?.isCanceled == true" class="btn btn-success" @click="createTicket()">Get
                         Tickets</button>
