@@ -36,9 +36,14 @@
 
                 <!-- FIXME add a conditional v-if for hasTicket or sold out -->
 
-                <div>
-                    <button :disabled="towerEvent?.isCanceled == true" class="btn btn-success" @click="createTicket()">Get
-                        Tickets</button>
+                <div class="d-flex pt-2">
+
+                    <div class="rounded bg-info light-shadow p-2">
+
+                        <button :disabled="towerEvent?.isCanceled == true" class="btn btn-success"
+                            @click="createTicket()">Get
+                            Tickets</button>
+                    </div>
                 </div>
 
 
@@ -191,6 +196,7 @@ export default {
                     const ticketId = ticketToRemove.id
                     await ticketsService.removeTicket(ticketId)
                     AppState.myTickets.ticketCount--
+                    const ticketsRemaining = AppState.tickets.filter(t => t.)
 
                 } catch (error) {
                     logger.error(error)
