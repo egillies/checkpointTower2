@@ -212,7 +212,20 @@ export default {
                     await commentsService.createComment(formData)
                     editable.value = {}
                 } catch (error) {
-                    Pop.error(error)
+                    logger.error(error)
+                    Pop.error(error.message, '[ERROR CREATING COMMENT]')
+                }
+            },
+
+            async removeComment() {
+                try {
+                    logger.log('[REMOVING COMMENT]')
+                    const commentToRemove = AppState.comments.find(c => c.accountId == AppState.account.id)
+                    const commentId = commentToRemove.id
+                    await commentsService.removeComment(commentId)
+                } catch (error) {
+                    logger.error(error)
+                    Pop.error(error.message, '[ERROR REMOVING COMMENT]')
                 }
             }
         }
