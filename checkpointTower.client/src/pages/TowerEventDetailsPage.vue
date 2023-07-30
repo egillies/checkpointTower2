@@ -61,7 +61,7 @@
                     {{ comment.body }}
                     {{ comment.profile?.name }}
                     <img class="profile-img" :src="comment.profile?.imgUrl" alt="" />
-                    <button v-if="comment?.creatorId == creatorId" class="btn btn-danger"
+                    <button v-if="comment?.creatorId == account.Id" class="btn btn-danger"
                         @click="removeComment(comment.id)">Delete
                         Comment</button>
                 </div>
@@ -228,7 +228,7 @@ export default {
                 }
             },
 
-            async removeComment() {
+            async removeComment(commentId) {
                 try {
                     const wantsToRemoveComment = await Pop.confirm(`Are you sure you want to delete this comment?`)
 
@@ -236,7 +236,7 @@ export default {
                         return
                     }
 
-                    const commentId = comment.id
+                    await commentsService.removeComment(commentId)
 
                 } catch (error) {
                     logger.error(error)
