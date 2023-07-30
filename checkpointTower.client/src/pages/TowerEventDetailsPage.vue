@@ -61,7 +61,8 @@
                     {{ comment.body }}
                     {{ comment.profile?.name }}
                     <img class="profile-img" :src="comment.profile?.imgUrl" alt="" />
-                    <button v-if="comment?.accountId == accountId" class="btn btn-danger" @click="removeComment()">Delete
+                    <button v-if="comment?.creatorId == creatorId" class="btn btn-danger"
+                        @click="removeComment(comment.id)">Delete
                         Comment</button>
                 </div>
 
@@ -229,10 +230,14 @@ export default {
 
             async removeComment() {
                 try {
-                    logger.log('[REMOVING COMMENT]')
-                    const commentToRemove = AppState.comments.find(c => c.accountId == AppState.account.id)
-                    const commentId = commentToRemove.id
-                    await commentsService.removeComment(commentId)
+                    const wantsToRemoveComment = await Pop.confirm(`Are you sure you want to delete this comment?`)
+
+                    if (!wantsToRemoveComment) {
+                        return
+                    }
+
+                    const commentId = comment.id
+
                 } catch (error) {
                     logger.error(error)
                     Pop.error(error.message, '[ERROR REMOVING COMMENT]')
