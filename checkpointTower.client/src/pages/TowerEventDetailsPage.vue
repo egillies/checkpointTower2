@@ -45,7 +45,7 @@
 
                     <button v-if="!hasTicket" class="btn btn-success" @click="createTicket()">Get Tickets</button>
 
-                    <button v-else class="btn btn-danger" @click="RemoveTicket()">Delete Ticket</button>
+                    <button class="btn btn-danger" @click="RemoveTicket()">Delete Ticket</button>
 
                 </div>
 
@@ -166,9 +166,11 @@ export default {
             account: computed(() => AppState.account),
             tickets: computed(() => AppState.tickets),
             comments: computed(() => AppState.comments),
+            // isSoldOut: computed(() => AppState.)
             hasTicket: computed(() => {
                 return AppState.tickets.find(c => c.accountId == AppState.account.id)
             }),
+
 
             // TODO add a computed that checks to see if the event is soldout (a bit of math against the ticketCount and the capicity)
             async archiveTowerEvent() {
@@ -207,7 +209,7 @@ export default {
                     const ticketId = ticketToRemove.id
                     await ticketsService.removeTicket(ticketId)
                     AppState.myTickets.ticketCount--
-                    // const ticketsRemaining = AppState.tickets.filter(t => t.)
+                    //   const ticketsRemaining = AppState.tickets.filter(t => t.)
 
                 } catch (error) {
                     logger.error(error)

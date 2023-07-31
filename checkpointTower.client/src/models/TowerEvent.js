@@ -11,6 +11,7 @@ export class TowerEvent {
         this.isCanceled = data.isCanceled || false
         this.coverImg = data.coverImg
         this.type = data.type
+        this.ticketCount = data.ticketCount
 
     }
 }
